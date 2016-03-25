@@ -4,16 +4,17 @@ import java.util.List;
 
 public class Persona {
 	protected String nombre;
-	protected int tel1;
-	protected int tel2;
-	protected int documento;
+	protected String tel1;
+	protected String tel2;
+	protected String documento;
 	protected String usuario;
 	protected String contrasenia;
 	protected String correo;
 	protected List<Producto> listaProductos;
+	protected String direccion;
 	
 	
-	public Persona(String nNombre, int nTel1, int nTel2, int nDocumento,String nUsuario, String nContrasenia, String nCorreo)
+	public Persona(String nNombre, String nTel1, String nTel2, String nDocumento,String nUsuario, String nContrasenia, String nCorreo,String nDireccion)
 	{
 		this.nombre = nNombre;
 		this.tel1 = nTel1;
@@ -23,14 +24,14 @@ public class Persona {
 		this.contrasenia = nContrasenia;
 		this.correo = nCorreo;
 		this.listaProductos = null;
+		this.direccion = nDireccion;
 	}
 	
-	public void modificar(Persona persona,String nombre, int tel1, int tel2, int documento,String usurio, String contrasenia, String correo)
+	public void modificar(Persona persona,String nombre, String tel1, String tel2,String usurio, String contrasenia, String correo)
 	{
 		persona.setNombre(nombre);
 		persona.setTel1(tel1);
 		persona.setTel2(tel2);
-		persona.setDocumento(documento);
 		persona.setUsuario(usurio);
 		persona.setContrasenia(contrasenia);
 		persona.setCorreo(correo);
@@ -44,27 +45,27 @@ public class Persona {
 		this.nombre = nombre;
 	}
 
-	public int getTel1() {
+	public String getTel1() {
 		return tel1;
 	}
 
-	public void setTel1(int tel1) {
+	public void setTel1(String tel1) {
 		this.tel1 = tel1;
 	}
 
-	public int getTel2() {
+	public String getTel2() {
 		return tel2;
 	}
 
-	public void setTel2(int tel2) {
+	public void setTel2(String tel2) {
 		this.tel2 = tel2;
 	}
 
-	public int getDocumento() {
+	public String getDocumento() {
 		return documento;
 	}
 
-	public void setDocumento(int documento) {
+	public void setDocumento(String documento) {
 		this.documento = documento;
 	}
 
@@ -90,6 +91,22 @@ public class Persona {
 
 	public void setCorreo(String correo) {
 		this.correo = correo;
+	}
+
+	public List<Producto> getListaProductos() {
+		return listaProductos;
+	}
+
+	public void setListaProductos(List<Producto> listaProductos) {
+		this.listaProductos = listaProductos;
+	}
+
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
 	}
 	
 	
