@@ -14,7 +14,7 @@ public class Persona {
 	protected String direccion;
 	
 	
-	public Persona(String nNombre, String nTel1, String nTel2, String nDocumento,String nUsuario, String nContrasenia, String nCorreo,String nDireccion)
+	public Persona(String nDocumento,String nNombre, String nTel1, String nTel2 ,String nUsuario, String nContrasenia, String nCorreo,String nDireccion,List<Producto> nLista)
 	{
 		this.nombre = nNombre;
 		this.tel1 = nTel1;
@@ -23,7 +23,7 @@ public class Persona {
 		this.usuario = nUsuario;
 		this.contrasenia = nContrasenia;
 		this.correo = nCorreo;
-		this.listaProductos = null;
+		this.listaProductos = nLista;
 		this.direccion = nDireccion;
 	}
 	
@@ -108,7 +108,5 @@ public class Persona {
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
-	
-	
-	
 }
+
