@@ -12,9 +12,10 @@ public class Persona {
 	protected String correo;
 	protected List<Producto> listaProductos;
 	protected String direccion;
+	protected char tipoUsurio;
 	
 	
-	public Persona(String nDocumento,String nNombre, String nTel1, String nTel2 ,String nUsuario, String nContrasenia, String nCorreo,String nDireccion,List<Producto> nLista)
+	public Persona(String nDocumento,String nNombre, String nTel1, String nTel2 ,String nUsuario, String nContrasenia, String nCorreo,String nDireccion,List<Producto> nLista,char nTipoUsuario)
 	{
 		this.nombre = nNombre;
 		this.tel1 = nTel1;
@@ -25,6 +26,7 @@ public class Persona {
 		this.correo = nCorreo;
 		this.listaProductos = nLista;
 		this.direccion = nDireccion;
+		this.tipoUsurio = nTipoUsuario;
 	}
 	
 	public void modificar(Persona persona,String nombre, String tel1, String tel2,String usurio, String contrasenia, String correo)
@@ -108,5 +110,15 @@ public class Persona {
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
-}
 
+	public char getTipoUsurio() {
+		return tipoUsurio;
+	}
+
+	public void setTipoUsurio(char tipoUsurio) {
+		this.tipoUsurio = tipoUsurio;
+	}
+	
+	
+	
+}
