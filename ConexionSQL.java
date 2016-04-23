@@ -34,12 +34,12 @@ public class ConexionSQL {
 		
 	}
 	
-	public void insertarUsuario(Persona usuario,String tipo)
+	public void insertarUsuario(Persona usuario)
 	{
 
 		try {
 			prepararSQL();
-			prepStat = co.prepareStatement("INSERT INTO "+tipo.toUpperCase()+"S (id"+tipo+",nombre"+tipo+",telefono1"+tipo+",telefono2"+tipo+",usuario"+tipo+",contrasenia"+tipo+",correo"+tipo+",direccion"+tipo+")"+"values(?,?,?,?,?,?,?,?)");
+			prepStat = co.prepareStatement("INSERT INTO USUARIOS (idUsuario,nombreUsuario,telefono1Usuario,telefono2Usuario,usuarioUsuario,contraseniaUsuario,correoUsuario,direccionUsuario)"+"values(?,?,?,?,?,?,?,?)");
 			
 			prepStat.setString(1,usuario.getDocumento());
 			prepStat.setString(2,usuario.getNombre());
@@ -58,23 +58,22 @@ public class ConexionSQL {
 		} 
 	}
 	
-	public void modificarUsuario(String tipo,String documento,String nombre, String telefono1, String telefono2, String usuario, String contrasenia, String correo, String direccion)
+	public void modificarUsuario(Persona usuario)
 	{
 		
 		try {
 			prepararSQL();
-			prepStat = co.prepareStatement("UPDATE "+tipo.toUpperCase()+"S SET nombre"+tipo+" = ? , telefono1"+tipo+" = ? , telefono2"+tipo+" = ? , usuario"+tipo+" = ? , contrasenia"+tipo+" = ? , correo"+tipo+" = ? , direccion"+tipo+" = ? WHERE id"+tipo+" = "+documento);
+			prepStat = co.prepareStatement("UPDATE USUARIOS SET nombreUsuario = ? , telefono1Usuario = ? , telefono2Usuario = ? , usuarioUsuario = ? , contraseniaUsuario = ? , correoUsuario = ? , direccionUsuario = ? WHERE idUsuario = "+usuario.getDocumento());
 			//st.executeQuery("UPDATE "+tipo.toUpperCase()+"S SET nombre"+tipo+" = "+nombre+" , tel1"+tipo+" = "+tel1+" , tel2"+tipo+" = "+tel2+" , usuario"+tipo+" = "+usuario+" , contrasenia"+tipo+" = "+contrasenia+" , correo"+tipo+" = "+correo+" , direccion"+tipo+" = "+direccion+" WHERE id"+tipo+" = "+documento+"");
-			prepStat.setString(1, nombre);
-			prepStat.setString(2, telefono1);
-			prepStat.setString(3, telefono2);
-			prepStat.setString(4, usuario);
-			prepStat.setString(5, contrasenia);
-			prepStat.setString(6, correo);
-			prepStat.setString(7, direccion);
+			prepStat.setString(1, usuario.getNombre());
+			prepStat.setString(2, usuario.getTel1());
+			prepStat.setString(3, usuario.getTel2());
+			prepStat.setString(4, usuario.getUsuario());
+			prepStat.setString(5, usuario.getContrasenia());
+			prepStat.setString(6, usuario.getCorreo());
+			prepStat.setString(7, usuario.getDireccion());
 			
 			int n = prepStat.executeUpdate();
-			System.out.println(n);
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -134,16 +133,15 @@ public class ConexionSQL {
 			
 	}
 	
-	public Persona iniciarUsuario(String usuario, String contrasenia,String tipo)
+	public Persona iniciarUsuario(String usuario, String contrasenia)
 	{
 		try {
 			prepararSQL();
-			ResultSet rs = st.executeQuery("SELECT * FROM "+tipo.toUpperCase()+"S WHERE usuario"+tipo+" = \""+usuario+"\" and contrasenia"+tipo+" = \""+contrasenia+"\"");
+			ResultSet rs = st.executeQuery("SELECT * FROM USUARIOS WHERE usuarioUsuario = \""+usuario+"\" and contraseniaUsuario = \""+contrasenia+"\"");
 			if(rs.next())
 			{
 				//ResultSet rs2 = st.executeQuery("SELECT * FROM PRODUCTOS WHERE publicador = \""+rs.getString(5)+"\"");
-				Persona pers = new Persona(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8),obtenerLista(rs.getString(5),"publicador"));
-				System.out.println(pers.getUsuario());	
+				Persona pers = new Persona(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8),obtenerLista(rs.getString(5),"publicador"),rs.getString(9).charAt(0));	
 				return pers;
 			}else{
 				return null;
@@ -168,15 +166,18 @@ public class ConexionSQL {
 		String usuario = "campesino3";
 		String contrasen = "vcxz";
 		String cor = "algo3@hotmail.com";
-		String direc = null;
+		String direc = "la vereda de tu gfa";
 		List lista = null;
 		
 		
-		Persona cam = new Persona(id,nombre,tel1,tel2,usuario,contrasen,cor,direc,lista);
+		Persona cam = new Persona(id,nombre,tel1,tel2,usuario,contrasen,cor,direc,lista,'C');
 		
 		ConexionSQL conexion = new ConexionSQL();
-		conexion.eliminarProducto("Campesino3", "Pan");
+		//Persona cam2 = conexion.iniciarUsuario("Cliente1", "poiuy");
+		//System.out.println(cam2.getNombre());
+		//conexion.eliminarProducto("Campesino3", "Pan");
 		//List<Producto> lista = conexion.obtenerLista("Yuca", "nombreProducto");
+		conexion.modificarUsuario(cam);
 
 	}
 
