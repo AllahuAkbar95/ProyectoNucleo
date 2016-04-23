@@ -17,10 +17,8 @@ public class Datos {
 		if ((d).matches("([a-z]|[A-Z]|\\s)+"))
 		{ 
 			return true;
-		} else
-		{
-			return false;
-		}
+		} 
+		return false;
 	}
 
 	public static boolean validarNumeros(String d)
