@@ -1,4 +1,4 @@
-package vista;
+package vista_26_04_16;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -15,14 +15,17 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import ProyectTests.Tests.Datos;
+
 
 public class VentanaNuevoUsuario extends JFrame implements ActionListener {
 	
-	private JCheckBox checkTipoCliente,checkTipoCampesino;
+	//private JCheckBox checkTipoCliente,checkTipoCampesino;
 	private JLabel lblnombre, lbltelefono1,lbltelefono2, lbldocumento, lblusuario,
 	lblcontrasena,lblim, lblcorreo;
 	private JTextField txtnombre,txttelefono1,txttelefono2,txtdocumento,txtusuario
@@ -50,22 +53,22 @@ public class VentanaNuevoUsuario extends JFrame implements ActionListener {
 	    //COLORES
 	    Color verde= new Color(20, 60, 18);
 		
-	    checkTipoCliente=new JCheckBox("Cliente");
-	    checkTipoCliente.addActionListener(this);
-	    checkTipoCliente.setFont(letra);
-	    checkTipoCliente.setSelected(false);
-	    checkTipoCliente.setBackground(Color.WHITE);
-	 
-	    
-	    checkTipoCampesino=new JCheckBox("Campesino");
-	    checkTipoCampesino.addActionListener(this);
-	    checkTipoCampesino.setFont(letra);
-	    checkTipoCampesino.setSelected(false);
-	    checkTipoCampesino.setBackground(Color.WHITE);
-		
-		grupoCheck= new ButtonGroup();
-		grupoCheck.add(checkTipoCampesino);
-		grupoCheck.add(checkTipoCliente);
+//	    checkTipoCliente=new JCheckBox("Cliente");
+//	    checkTipoCliente.addActionListener(this);
+//	    checkTipoCliente.setFont(letra);
+//	    checkTipoCliente.setSelected(false);
+//	    checkTipoCliente.setBackground(Color.WHITE);
+//	 
+//	    
+//	    checkTipoCampesino=new JCheckBox("Campesino");
+//	    checkTipoCampesino.addActionListener(this);
+//	    checkTipoCampesino.setFont(letra);
+//	    checkTipoCampesino.setSelected(false);
+//	    checkTipoCampesino.setBackground(Color.WHITE);
+//		
+//		grupoCheck= new ButtonGroup();
+//		grupoCheck.add(checkTipoCampesino);
+//		grupoCheck.add(checkTipoCliente);
 		
 		
 		
@@ -130,28 +133,28 @@ public class VentanaNuevoUsuario extends JFrame implements ActionListener {
 		GridBagConstraints gbc=new GridBagConstraints();
 		
 		
-		gbc2.gridx = 1;
-		gbc2.gridy = 0;
-		gbc2.gridwidth = 1;
-		gbc2.gridheight = 1;
-		gbc2.weightx = 0.0;
-		gbc2.weighty = 1.0;
-		gbc2.insets = new Insets(3, 3, 3, 3);
-		gbc2.fill = GridBagConstraints.BOTH;
-		gbc2.anchor = GridBagConstraints.WEST;
-		panelcheck.add(checkTipoCliente, gbc2);
+//		gbc2.gridx = 1;
+//		gbc2.gridy = 0;
+//		gbc2.gridwidth = 1;
+//		gbc2.gridheight = 1;
+//		gbc2.weightx = 0.0;
+//		gbc2.weighty = 1.0;
+//		gbc2.insets = new Insets(3, 3, 3, 3);
+//		gbc2.fill = GridBagConstraints.BOTH;
+//		gbc2.anchor = GridBagConstraints.WEST;
+//		panelcheck.add(checkTipoCliente, gbc2);
+//		
 		
-		
-		gbc2.gridx = 2;
-		gbc2.gridy = 0;
-		gbc2.gridwidth = 1;
-		gbc2.gridheight = 1;
-		gbc2.weightx = 0.0;
-		gbc2.weighty = 1.0;
-		gbc2.insets = new Insets(3, 3, 3, 3);
-		gbc2.fill = GridBagConstraints.BOTH;
-		gbc2.anchor = GridBagConstraints.WEST;
-		panelcheck.add(checkTipoCampesino, gbc2);
+//		gbc2.gridx = 2;
+//		gbc2.gridy = 0;
+//		gbc2.gridwidth = 1;
+//		gbc2.gridheight = 1;
+//		gbc2.weightx = 0.0;
+//		gbc2.weighty = 1.0;
+//		gbc2.insets = new Insets(3, 3, 3, 3);
+//		gbc2.fill = GridBagConstraints.BOTH;
+//		gbc2.anchor = GridBagConstraints.WEST;
+//		panelcheck.add(checkTipoCampesino, gbc2);
 		
 		gbc2.gridx = 0;
 		gbc2.gridy = 0;
@@ -351,7 +354,7 @@ public class VentanaNuevoUsuario extends JFrame implements ActionListener {
 		
 		//panelBotones.setBorder(BorderFactory.createMatteBorder(3, 3, 3, 3, verde));
 		panelBotones.setBorder(BorderFactory.createTitledBorder("Llene la informacion"));
-		panelcheck.setBorder(BorderFactory.createTitledBorder("Seleccione Tipo de Usuario"));
+		//panelcheck.setBorder(BorderFactory.createTitledBorder("Seleccione Tipo de Usuario"));
 		//panelcheck.setBorder(BorderFactory.createMatteBorder(3, 3, 3, 3, verde));
 		
 		
@@ -362,47 +365,73 @@ public class VentanaNuevoUsuario extends JFrame implements ActionListener {
 
 	
 	public void actionPerformed(ActionEvent evento) {
-		if(evento.getSource()==checkTipoCliente){
-			//btnCrearUsuario.setEnabled(false);
-			txtcorreo.setEnabled(true);
-		}
-		else if(evento.getSource()==checkTipoCampesino){
-			//btnCrearUsuario.setEnabled(true);
-			txtcorreo.setEnabled(false);
+		if(evento.getSource()==btnCrearUsuario){
+			Datos d=new Datos();
 			
+			if(txtnombre.getText().length()==0 || txtdocumento.getText().length()==0 || txtusuario.getText().length()==0
+					|| contrasena.getText().length()==0 || txttelefono1.getText().length()==0 || txttelefono2.getText().length()==0
+					|| txtcorreo.getText().length()==0){
+				JOptionPane.showMessageDialog(this, "Debe llenar TODOS los campos por favor. ");
+				
+			}
+			else if(d.validarLetras(txtnombre.getText())==false){
+				JOptionPane.showMessageDialog(this, "NO se admiten numeros en el nombre ");
+			}
+			else if(d.validarNumeros(txtdocumento.getText())==false ){
+				JOptionPane.showMessageDialog(this, "NO se admiten letras en el Documento ");
+			}
+			else if(d.validarNumeros(txttelefono1.getText())==false){
+				JOptionPane.showMessageDialog(this, "NO se admiten letras en el Telefono 1");
+			}
+			else if(d.validarNumeros(txttelefono2.getText())==false){
+				JOptionPane.showMessageDialog(this,  "NO se admiten letras en el Telefono 2");
+
+			}
+//			else if(d.verificarCorreo(txtcorreo.getText())==false){
+//				JOptionPane.showMessageDialog(this, "El Correo no es valido");
+//			}
+			else if(txttelefono1.getText().equals(txttelefono2.getText())){
+				JOptionPane.showMessageDialog(this, "NO  puede usar el mismo numero telefonico en ambos campos");
+			}
 		}
 		
+//		if(evento.getSource()==checkTipoCliente){
+//			//btnCrearUsuario.setEnabled(false);
+//			txtcorreo.setEnabled(true);
+//		}
+//		else if(evento.getSource()==checkTipoCampesino){
+//			//btnCrearUsuario.setEnabled(true);
+//			txtcorreo.setEnabled(false);
+//			
+//		}
+//		
 		if( evento.getSource()==btnAtras){
 			VentanaPrincipal vp=new VentanaPrincipal();
 			vp.setVisible(true);
 			vp.pack();
 			vp.setLocationRelativeTo(null);
 			this.setVisible(false);
-			
-			
-			
-			
-			
+				
 		}
 	}
 
 	
 	//GETTERS AND SETTERS
-	public JCheckBox getCheckTipoCliente() {
-		return checkTipoCliente;
-	}
-
-	public void setCheckTipoCliente(JCheckBox checkTipoCliente) {
-		this.checkTipoCliente = checkTipoCliente;
-	}
-
-	public JCheckBox getCheckTipoCampesino() {
-		return checkTipoCampesino;
-	}
-
-	public void setCheckTipoCampesino(JCheckBox checkTipoCampesino) {
-		this.checkTipoCampesino = checkTipoCampesino;
-	}
+//	public JCheckBox getCheckTipoCliente() {
+//		return checkTipoCliente;
+//	}
+//
+//	public void setCheckTipoCliente(JCheckBox checkTipoCliente) {
+//		this.checkTipoCliente = checkTipoCliente;
+//	}
+//
+//	public JCheckBox getCheckTipoCampesino() {
+//		return checkTipoCampesino;
+//	}
+//
+//	public void setCheckTipoCampesino(JCheckBox checkTipoCampesino) {
+//		this.checkTipoCampesino = checkTipoCampesino;
+//	}
 
 	public JLabel getLblnombre() {
 		return lblnombre;
