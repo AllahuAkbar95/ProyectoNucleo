@@ -1,4 +1,4 @@
-package vista_26_04_16;
+package vista;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import ProyectTests.Tests.Campesino;
 import ProyectTests.Tests.Datos;
 
 public class VentanaEditarUsuario extends JFrame implements ActionListener{
@@ -27,11 +28,12 @@ public class VentanaEditarUsuario extends JFrame implements ActionListener{
 	private JPasswordField contrasena;
 	private JButton btnAceptar, btnCancelar;
 	private JPanel panelBotones, panel;
+	private Campesino campesino;
 	
 	
 	
-	public VentanaEditarUsuario() {
-	
+	public VentanaEditarUsuario(Campesino campesino) {
+	this.campesino = campesino;
 		//setSize(1000, 5000);
 		 setResizable(false);
 		 setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -268,7 +270,7 @@ public class VentanaEditarUsuario extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent evento) {
 		Datos d=new Datos();
 		if(evento.getSource()==btnCancelar){
-			VentanaCampesino vc=new VentanaCampesino();
+			VentanaCampesino vc=new VentanaCampesino(this.campesino);
 			vc.setVisible(true);
 			//vc.pack();//en caso de que se haga grande
 			vc.setLocationRelativeTo(null);
