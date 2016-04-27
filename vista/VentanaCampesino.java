@@ -1,4 +1,4 @@
-package vista_26_04_16;
+package vista;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -22,17 +22,21 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import ProyectTests.Tests.Campesino;
+
 public class VentanaCampesino extends JFrame implements ActionListener{
 	
 	private JButton btnEditarPerfil, btnVender, 
 			btnConsultarPrecio,btnCerrarSesion,btnnotificaciones;
 	private JPanel panelBotones, panelTabla, panelfinal;
 	private JTable table;
+	private Campesino campesino;
 	
 	
 	
 	//CONSTRUCTOR
-	public VentanaCampesino(){
+	public VentanaCampesino(Campesino usuario){
+		this.campesino = usuario;
 		
 		setTitle(" AGROLIBRE -- Sesion Inciada (Usuario)");
 		setSize(400, 320);//ancho- largo
@@ -216,7 +220,7 @@ public class VentanaCampesino extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent evento) {
 
 		if(evento.getSource()==btnEditarPerfil){
-			VentanaEditarUsuario vep=new VentanaEditarUsuario();
+			VentanaEditarUsuario vep=new VentanaEditarUsuario(this.campesino);
 			vep.setVisible(true);
 			vep.pack();
 			vep.setLocationRelativeTo(null);
