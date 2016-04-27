@@ -1,4 +1,4 @@
-package vista;
+package vista_26_04_16;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -17,6 +17,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -212,11 +213,21 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		
 		if(evento.getSource()==btnIngresar){
 			
+			
+			
+			if((txtusuario.getText().length()==0 || passcontrasena.getText().length()==0)
+					||(txtusuario.getText().length()!=0 &&passcontrasena.getText().length()==0)
+					||(txtusuario.getText().length()==0 && passcontrasena.getText().length()!=0)){
+				JOptionPane.showMessageDialog(this, "Por favor llene TODOS los campos");
+			}
+			
+			if((txtusuario.getText().length()!=0 && passcontrasena.getText().length()!=0)){
+			
 			//para mirar la ventana de campesino
 			
 			VentanaCampesino vc=new VentanaCampesino();
 			vc.setVisible(true);
-			vc.pack(); 
+			vc.pack(); //en caso de que se haga grande
 			vc.setLocationRelativeTo(null);
 			this.setVisible(false);
 			
@@ -225,6 +236,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 //			vcl.setVisible(true);
 //			vcl.setLocationRelativeTo(null);
 //			this.setVisible(false);
+			}
 		}
 		
 		if(evento.getSource()==btnCrearUsuario){
