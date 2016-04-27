@@ -1,4 +1,4 @@
-package vista_26_04_16;
+package vista;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -22,6 +22,10 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import ProyectTests.Tests.Campesino;
+import ProyectTests.Tests.Persona;
+import conexion.ConexionSQL;
+
 public class VentanaPrincipal extends JFrame implements ActionListener{
 	
 	private JLabel lblusuario, lblcontrasena, lblim;
@@ -30,6 +34,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	private JPanel panelBotones ,panelImagen ,panelprin;
 	private JPasswordField passcontrasena;
 	private ImageIcon imagen;
+	private ConexionSQL conexion = new ConexionSQL();
 	
 	
 	
@@ -213,30 +218,40 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		
 		if(evento.getSource()==btnIngresar){
 			
+			Persona usuario = conexion.iniciarUsuario(txtusuario.getText(), passcontrasena.getText());
 			
-			
-			if((txtusuario.getText().length()==0 || passcontrasena.getText().length()==0)
-					||(txtusuario.getText().length()!=0 &&passcontrasena.getText().length()==0)
-					||(txtusuario.getText().length()==0 && passcontrasena.getText().length()!=0)){
-				JOptionPane.showMessageDialog(this, "Por favor llene TODOS los campos");
+			if(usuario != null)
+			{
+				if(usuario.getTipoUsurio().charAt(0) == 'C')
+				{
+					Campesino camp = new Campesino(usuario.getDocumento(), usuario.getNombre(), usuario.getTel1(), usuario.getTel2(), usuario.getUsuario(), usuario.getContrasenia(), usuario.getCorreo(), usuario.getDireccion(), usuario.getListaProductos(), usuario.getTipoUsurio().charAt(0));
+				//para mirar la ventana de campesino
+				VentanaCampesino vc=new VentanaCampesino(camp);
+				vc.setVisible(true);
+				vc.pack(); //en caso de que se haga grande
+				vc.setLocationRelativeTo(null);
+				this.setVisible(false);
+				}
+				else if(usuario.getTipoUsurio().charAt(0) == 'U')
+				{
+					//para mirar la ventana de cliente
+					VentanaCliente vcl=new VentanaCliente();
+					vcl.setVisible(true);
+					vcl.setLocationRelativeTo(null);
+					this.setVisible(false);
+				}else{
+					JOptionPane.showMessageDialog(this, "Usuario y/o contraseña incorrectos");
+				}
+				
+				
+			}else{
+				JOptionPane.showMessageDialog(this, "Usuario y/o contraseña incorrectos");
 			}
 			
-			if((txtusuario.getText().length()!=0 && passcontrasena.getText().length()!=0)){
 			
-			//para mirar la ventana de campesino
 			
-			VentanaCampesino vc=new VentanaCampesino();
-			vc.setVisible(true);
-			vc.pack(); //en caso de que se haga grande
-			vc.setLocationRelativeTo(null);
-			this.setVisible(false);
 			
-			//para mirar la ventana de cliente
-//			VentanaCliente vcl=new VentanaCliente();
-//			vcl.setVisible(true);
-//			vcl.setLocationRelativeTo(null);
-//			this.setVisible(false);
-			}
+			
 		}
 		
 		if(evento.getSource()==btnCrearUsuario){
