@@ -1,4 +1,4 @@
-package vista;
+package vista_26_04_16;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -98,20 +98,7 @@ public class VentanaCampesino extends JFrame implements ActionListener{
 	            {"Papa",  new Integer(100), new Integer(80000),false,},
 	            {"Naranja",  new Integer(200), new Integer(6000),true,},
 	            {"Manzana",  new Integer(30), new Integer(7000),true,},
-	            {"Armas",  new Integer(4000), new Integer(200000), false,},
-	            {"Armas",  new Integer(4000), new Integer(200000), false,},
-	            {"Armas",  new Integer(4000), new Integer(200000), false,},
-	            {"Armas",  new Integer(4000), new Integer(200000), false,},
-	            {"Armas",  new Integer(4000), new Integer(200000), false,},
-	            {"Armas",  new Integer(4000), new Integer(200000), false,},
-	            {"Armas",  new Integer(4000), new Integer(200000), false,},
-	            {"Armas",  new Integer(4000), new Integer(200000), false,},
-	            {"Armas",  new Integer(4000), new Integer(200000), false,},
-	            {"Armas",  new Integer(4000), new Integer(200000), false,},
-	            {"Armas",  new Integer(4000), new Integer(200000), false,},
-	            {"Armas",  new Integer(4000), new Integer(200000), false,},
-	            
-	         
+	            {"Armas",  new Integer(4000), new Integer(200000), false,}
 	        };
 	        DefaultTableModel model = new DefaultTableModel(productos, nombresColumnas);
 	        table = new JTable(model) {
@@ -238,6 +225,14 @@ public class VentanaCampesino extends JFrame implements ActionListener{
 			
 			
 		}
+		
+		if(evento.getSource()==btnConsultarPrecio){
+			VentanaPrecio vp=new VentanaPrecio();
+			vp.setVisible(true);
+			vp.setLocationRelativeTo(null);
+			this.setVisible(false);
+		}
+			
 		if(evento.getSource()==btnCerrarSesion){
 			JOptionPane.showMessageDialog(this, "Sesion cerrada conrectamente! ");
 			VentanaPrincipal vp=new VentanaPrincipal();
