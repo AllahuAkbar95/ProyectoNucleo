@@ -1,4 +1,4 @@
-package vista;
+package vista_26_04_16;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -11,9 +11,12 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+
+import ProyectTests.Tests.Datos;
 
 public class VentanaEditarCliente extends JFrame implements ActionListener {
 
@@ -270,14 +273,50 @@ public class VentanaEditarCliente extends JFrame implements ActionListener {
 		
 		
 		public void actionPerformed(ActionEvent evento) {
+			Datos d=new Datos();
+			if (evento.getSource()==btnAceptar){
+				if(txtnombre.getText().length()==0 || txtdocumento.getText().length()==0 
+						|| contrasena.getText().length()==0 || txttelefono1.getText().length()==0 || txttelefono2.getText().length()==0
+						|| txtcorreo.getText().length()==0){
+					JOptionPane.showMessageDialog(this, "Debe llenar TODOS los campos por favor. ");
+					
+				}
+				else if(d.validarLetras(txtnombre.getText())==false){
+					JOptionPane.showMessageDialog(this, "NO se admiten numeros en el nombre ");
+				}
+				else if(d.validarNumeros(txtdocumento.getText())==false ){
+					JOptionPane.showMessageDialog(this, "NO se admiten letras en el Documento ");
+				}
+				else if(d.validarNumeros(txttelefono1.getText())==false){
+					JOptionPane.showMessageDialog(this, "NO se admiten letras en el Telefono 1");
+				}
+				else if(d.validarNumeros(txttelefono2.getText())==false){
+					JOptionPane.showMessageDialog(this,  "NO se admiten letras en el Telefono 2");
+
+				}
+//				else if(d.verificarCorreo(txtcorreo.getText())==false){
+//					JOptionPane.showMessageDialog(this, "El Correo no es valido");
+//				}
+				else if(txttelefono1.getText().equals(txttelefono2.getText())){
+					JOptionPane.showMessageDialog(this, "NO  puede usar el mismo numero telefonico en ambos campos");
+				}
+				else
+					JOptionPane.showMessageDialog(this,"Cliente editado correctamente ");
+			
+			
+			}
+			
 			if(evento.getSource()==btnCancelar){
 				VentanaCliente vcl=new VentanaCliente();
 				vcl.setVisible(true);
-				
+				//vcl.pack();
 				vcl.setLocationRelativeTo(null);
 				this.setVisible(false);
 			}
-			if(evento.getSource()==txtdocumento){//busca el documento,si lo encuentra permite editar
+			if(d.validarNumeros(txtdocumento.getText())==false){
+				JOptionPane.showMessageDialog(this, "NO debe colocar letras en el Documento");
+			}
+			if(evento.getSource()==txtdocumento && d.validarNumeros(txtdocumento.getText())==true){//busca el documento,si lo encuentra permite editar
 				txtnombre.setEnabled(true);
 				contrasena.setEnabled(true);
 				txttelefono1.setEnabled(true);
