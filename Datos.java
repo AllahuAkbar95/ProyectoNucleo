@@ -37,7 +37,7 @@ public class Datos {
 		int c1 = 0, c2 = 0,pos1=0,pos2=0;
 		if (correo.indexOf("@") != -1 && correo.indexOf(".") != -1) {
 
-			for (char i = 0; i < correo.length(); i++) {
+			for (char i = 0; i <= correo.length(); i++) {
 				char letra = correo.charAt(i);
 				if (letra == '@') {
 					c1++;
