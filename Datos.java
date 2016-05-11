@@ -43,11 +43,14 @@ public class Datos {
 					c1++;
 					pos1=i;
 				} else if (letra == '.') {
-					c2++;
-					pos2=i;
+			       pos2=i;
+					 if(c1!=0){
+							c2++;
+						    }
 
 				}
 			}
+			//System.out.println(c1+" "+c2);
 			if ((c1 <= 1 && c2 <= 2)&&(pos1<pos2)&&(pos1>1&&pos2>2)) {
 				v = true;
 			}
