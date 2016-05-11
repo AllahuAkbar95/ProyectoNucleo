@@ -45,15 +45,16 @@ public class Datos {
 				} else if (letra == '.') {
 					c2++;
 					pos2=i;
+
 				}
 			}
-			if ((c1 >= 1 && c2 >= 2)&&(pos1<pos2)&&(pos1>1&&pos2>2)) {
+			if ((c1 <= 1 && c2 <= 2)&&(pos1<pos2)&&(pos1>1&&pos2>2)) {
 				v = true;
 			}
 		}
 		return v;
 	}
-
+	
 
 }
 
