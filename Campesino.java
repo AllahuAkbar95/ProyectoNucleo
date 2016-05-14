@@ -2,6 +2,11 @@ package ProyectTests.Tests;
 
 import java.util.List;
 
+
+/**
+ * En esta clase se define un campesino con sus respectivos atributos
+ */
+
 public class Campesino extends Persona {
 	public Campesino(String nDocumento, String nNombre, String nTel1, String nTel2, String nUsuario,
 			String nContrasenia, String nCorreo, String nDireccion, List<Producto> nLista, char nTipoUsuario) {
