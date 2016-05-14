@@ -1,4 +1,4 @@
-package vista_26_04_16;
+package vista;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -9,19 +9,27 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import ProyectTests.Tests.Cliente;
+import conexion.ConexionSQL;
+
 public class VentanaCliente extends JFrame implements ActionListener {
-	private JButton btnEditarPerfil, btnComfirmarCompra,btnCerrarSesion;
-	private JPanel panelBotones, panelCompleto;
+	private JButton btnEditarPerfil, btnComfirmarCompra,btnCerrarSesion, btnAgregarCompra;
+	private JLabel lblimg;
+	private ImageIcon imagen;
+	private JPanel panelBotones, panelCompleto, panelimagen;
+	private Cliente usuario;
 	
-	public VentanaCliente() {
-		
+	public VentanaCliente(Cliente usuario) {
+		this.usuario = usuario;
 		setTitle(" AGROLIBRE -- Sesion Inciada (Cliente)");
-		setSize(400, 400);//ancho- largo
+		setSize(400, 290);//ancho- largo
 	    setResizable(false);
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    setLocationRelativeTo(null);
@@ -51,14 +59,24 @@ public class VentanaCliente extends JFrame implements ActionListener {
 	    btnCerrarSesion.setBackground(verde);
 	    btnCerrarSesion.setForeground(Color.WHITE);
 	    
+	    imagen=new ImageIcon("logo2.jpg");
+	    lblimg=new JLabel(imagen);
+	    
+	    btnAgregarCompra=new JButton("Agregar Nvos Productos");
+	    btnAgregarCompra.addActionListener(this);
+	    btnAgregarCompra.setFont(letra);
+	    btnAgregarCompra.setBackground(verde);
+	    btnAgregarCompra.setForeground(Color.WHITE);
 	    
 	
+	    panelimagen=new JPanel();
+	    panelimagen.setLayout(new GridBagLayout());
+	    GridBagConstraints gbc2 = new GridBagConstraints();
+	    
 	    panelBotones= new JPanel();
 	    panelBotones.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
 	    
-		
-		
 		gbc.gridx = 0;
 		gbc.gridy = 2;
 		gbc.gridwidth = 1;
@@ -68,7 +86,9 @@ public class VentanaCliente extends JFrame implements ActionListener {
 		gbc.insets = new Insets(3, 3, 3, 3);
 		gbc.fill = GridBagConstraints.BOTH;
 		gbc.anchor = GridBagConstraints.WEST;
-		panelBotones.add(btnComfirmarCompra, gbc);
+		panelBotones.add(btnAgregarCompra, gbc);
+		
+		
 	    
 		gbc.gridx = 1;
 		gbc.gridy = 2;
@@ -92,10 +112,34 @@ public class VentanaCliente extends JFrame implements ActionListener {
 		gbc.anchor = GridBagConstraints.WEST;
 		panelBotones.add(btnCerrarSesion, gbc);
 		
+		gbc.gridx = 1;
+		gbc.gridy = 3;
+		gbc.gridwidth = 1;
+		gbc.gridheight = 1;
+		gbc.weightx = 0.0;
+		gbc.weighty = 1.0;
+		gbc.insets = new Insets(3, 3, 3, 3);
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.anchor = GridBagConstraints.WEST;
+		panelBotones.add(btnComfirmarCompra, gbc);
+		
+		
+		
+		gbc.gridx = 0;
+		gbc.gridy = 4;
+		gbc.gridwidth = 1;
+		gbc.gridheight = 1;
+		gbc.weightx = 0.0;
+		gbc.weighty = 1.0;
+		gbc.insets = new Insets(3, 3, 3, 3);
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.anchor = GridBagConstraints.WEST;
+		panelimagen.add(lblimg, gbc2);
+		
 	   
 		panelCompleto =new JPanel();
 		
-		
+		panelCompleto.add(panelimagen);
 		panelCompleto.add(panelBotones);
 		
 		
@@ -110,8 +154,24 @@ public class VentanaCliente extends JFrame implements ActionListener {
 
 	
 	public void actionPerformed(ActionEvent evento) {
+		
+		if(evento.getSource()==btnAgregarCompra){
+			VentanaAgregarCompra vac=new VentanaAgregarCompra(this.usuario);
+			vac.setVisible(true);
+			this.setVisible(false);
+		}
+		
+		if(evento.getSource()==btnComfirmarCompra){
+			ConexionSQL conexion = new ConexionSQL();
+			for(int i=0; i<usuario.getListaProductos().size();i++)
+			{
+				//modificar producto
+			}
+			JOptionPane.showMessageDialog(this, "Compra realizada con exito"+"\n"+"GRACIAS POR USAR AGROLIBRE");
+		}
+		
 		if(evento.getSource()==btnEditarPerfil){
-			VentanaEditarCliente vec=new VentanaEditarCliente();
+			VentanaEditarCliente vec=new VentanaEditarCliente(this.usuario);
 			vec.setVisible(true);
 			vec.pack();
 			vec.setLocationRelativeTo(null);
@@ -130,6 +190,56 @@ public class VentanaCliente extends JFrame implements ActionListener {
 		}
 		
 	}
+
+	
+	
+
+	public JButton getBtnAgregarCompra() {
+		return btnAgregarCompra;
+	}
+
+
+
+	public void setBtnAgregarCompra(JButton btnAgregarCompra) {
+		this.btnAgregarCompra = btnAgregarCompra;
+	}
+
+
+
+	public JLabel getLblimg() {
+		return lblimg;
+	}
+
+
+
+	public void setLblimg(JLabel lblimg) {
+		this.lblimg = lblimg;
+	}
+
+
+
+	public ImageIcon getImagen() {
+		return imagen;
+	}
+
+
+
+	public void setImagen(ImageIcon imagen) {
+		this.imagen = imagen;
+	}
+
+
+
+	public JPanel getPanelimagen() {
+		return panelimagen;
+	}
+
+
+
+	public void setPanelimagen(JPanel panelimagen) {
+		this.panelimagen = panelimagen;
+	}
+
 
 
 	public JButton getBtnEditarPerfil() {
@@ -180,8 +290,4 @@ public class VentanaCliente extends JFrame implements ActionListener {
 	public void setPanelCompleto(JPanel panelCompleto) {
 		this.panelCompleto = panelCompleto;
 	}
-	
-	
-	
-
 }
