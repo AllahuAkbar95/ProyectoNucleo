@@ -39,7 +39,6 @@ public class Persona {
 		persona.setDireccion(direccion);
 	}
 
-
 	public String getNombre() {
 		return nombre;
 	}
@@ -112,8 +111,8 @@ public class Persona {
 		this.direccion = direccion;
 	}
 
-	public char getTipoUsurio() {
-		return tipoUsurio;
+	public String getTipoUsurio() {
+		return ""+tipoUsurio;
 	}
 
 	public void setTipoUsurio(char tipoUsurio) {
