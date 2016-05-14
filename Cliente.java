@@ -2,6 +2,10 @@ package ProyectTests.Tests;
 
 import java.util.List;
 
+/**
+ * En esta clase se define un cliente con sus respectivos atributos
+ */
+
 public class Cliente extends Persona{
 
 	public Cliente(String nDocumento, String nNombre, String nTel1, String nTel2, String nUsuario, String nContrasenia,
