@@ -22,24 +22,24 @@ public class ConexionSQL {
 	{
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			co = DriverManager.getConnection("jdbc:mysql://localhost/proyecto?user=root&password=Ang2408DBsql&useSSL=false");
+/*problema*/co = DriverManager.getConnection("jdbc:mysql://localhost/proyecto?user=root&password=Ang2408DBsql&useSSL=false");
 			st = co.createStatement();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e.toString());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e.toString());
 		}
 		
 	}
 	
-	public void insertarUsuario(Persona usuario)
+	public boolean insertarUsuario(Persona usuario)
 	{
 
 		try {
 			prepararSQL();
-			prepStat = co.prepareStatement("INSERT INTO USUARIOS (idUsuario,nombreUsuario,telefono1Usuario,telefono2Usuario,usuarioUsuario,contraseniaUsuario,correoUsuario,direccionUsuario)"+"values(?,?,?,?,?,?,?,?)");
+			prepStat = co.prepareStatement("INSERT INTO USUARIOS (idUsuario,nombreUsuario,telefono1Usuario,telefono2Usuario,usuarioUsuario,contraseniaUsuario,correoUsuario,direccionUsuario,tipoUsuario)"+"values(?,?,?,?,?,?,?,?,?)");
 			
 			prepStat.setString(1,usuario.getDocumento());
 			prepStat.setString(2,usuario.getNombre());
@@ -49,11 +49,14 @@ public class ConexionSQL {
 			prepStat.setString(6,usuario.getContrasenia());
 			prepStat.setString(7,usuario.getCorreo());
 			prepStat.setString(8,usuario.getDireccion());
+			prepStat.setString(9,usuario.getTipoUsurio());
 			
-			prepStat.executeUpdate();	
+			prepStat.executeUpdate();
+			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			System.out.println(e.toString());
+			return false;
 			//e.printStackTrace();
 		} 
 	}
@@ -64,7 +67,6 @@ public class ConexionSQL {
 		try {
 			prepararSQL();
 			prepStat = co.prepareStatement("UPDATE USUARIOS SET nombreUsuario = ? , telefono1Usuario = ? , telefono2Usuario = ? , usuarioUsuario = ? , contraseniaUsuario = ? , correoUsuario = ? , direccionUsuario = ? WHERE idUsuario = "+usuario.getDocumento());
-			//st.executeQuery("UPDATE "+tipo.toUpperCase()+"S SET nombre"+tipo+" = "+nombre+" , tel1"+tipo+" = "+tel1+" , tel2"+tipo+" = "+tel2+" , usuario"+tipo+" = "+usuario+" , contrasenia"+tipo+" = "+contrasenia+" , correo"+tipo+" = "+correo+" , direccion"+tipo+" = "+direccion+" WHERE id"+tipo+" = "+documento+"");
 			prepStat.setString(1, usuario.getNombre());
 			prepStat.setString(2, usuario.getTel1());
 			prepStat.setString(3, usuario.getTel2());
@@ -73,13 +75,30 @@ public class ConexionSQL {
 			prepStat.setString(6, usuario.getCorreo());
 			prepStat.setString(7, usuario.getDireccion());
 			
-			int n = prepStat.executeUpdate();
+			prepStat.executeUpdate();
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			System.out.println(e.toString());
 		}
 	}
+	
+/*	public void modificarProducto(int idProducto)
+	{
+		try {
+			prepararSQL();
+			prepStat = co.prepareStatement("UPDATE PRODUCTOS SET  cantidad = ? WHERE idProducto = "+idProducto);
+			prepStat.setString(1, usuario.getNombre());
+
+			
+			prepStat.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.toString());
+		}
+		
+	}*/
 	
 	public void insertarProducto(Producto producto)
 	{
@@ -153,32 +172,6 @@ public class ConexionSQL {
 		}
 		
 		
-	}
-	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		
-		
-		String id = "3333333";
-		String nombre = "Alan Brito";
-		String tel1 = "7655468";
-		String tel2 = null;
-		String usuario = "campesino3";
-		String contrasen = "vcxz";
-		String cor = "algo3@hotmail.com";
-		String direc = "la vereda de tu gfa";
-		List lista = null;
-		
-		
-		Persona cam = new Persona(id,nombre,tel1,tel2,usuario,contrasen,cor,direc,lista,'C');
-		
-		ConexionSQL conexion = new ConexionSQL();
-		//Persona cam2 = conexion.iniciarUsuario("Cliente1", "poiuy");
-		//System.out.println(cam2.getNombre());
-		//conexion.eliminarProducto("Campesino3", "Pan");
-		//List<Producto> lista = conexion.obtenerLista("Yuca", "nombreProducto");
-		conexion.modificarUsuario(cam);
-
 	}
 
 }
