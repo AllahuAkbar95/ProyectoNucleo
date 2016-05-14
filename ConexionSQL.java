@@ -10,8 +10,6 @@ import ProyectTests.Tests.Campesino; //para pruebas
 import ProyectTests.Tests.Persona;
 import ProyectTests.Tests.Producto;
 
-//import com.mysql.jdbc.Connection;
-//import com.mysql.jdbc.Statement;
 
 public class ConexionSQL {
 	private java.sql.Connection co;
@@ -22,7 +20,7 @@ public class ConexionSQL {
 	{
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-/*problema*/co = DriverManager.getConnection("jdbc:mysql://localhost/proyecto?user=root&password=Ang2408DBsql&useSSL=false");
+			co = DriverManager.getConnection("jdbc:mysql://proyectoNucleo.heliohost.org/proyecto_nucleo?user=proyecto_usuario&password=usuario123");
 			st = co.createStatement();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -39,7 +37,7 @@ public class ConexionSQL {
 
 		try {
 			prepararSQL();
-			prepStat = co.prepareStatement("INSERT INTO USUARIOS (idUsuario,nombreUsuario,telefono1Usuario,telefono2Usuario,usuarioUsuario,contraseniaUsuario,correoUsuario,direccionUsuario,tipoUsuario)"+"values(?,?,?,?,?,?,?,?,?)");
+			prepStat = co.prepareStatement("INSERT INTO usuarios (idUsuario,nombreUsuario,telefono1Usuario,telefono2Usuario,usuarioUsuario,contraseniaUsuario,correoUsuario,direccionUsuario,tipoUsuario)"+"values(?,?,?,?,?,?,?,?,?)");
 			
 			prepStat.setString(1,usuario.getDocumento());
 			prepStat.setString(2,usuario.getNombre());
@@ -66,7 +64,7 @@ public class ConexionSQL {
 		
 		try {
 			prepararSQL();
-			prepStat = co.prepareStatement("UPDATE USUARIOS SET nombreUsuario = ? , telefono1Usuario = ? , telefono2Usuario = ? , usuarioUsuario = ? , contraseniaUsuario = ? , correoUsuario = ? , direccionUsuario = ? WHERE idUsuario = "+usuario.getDocumento());
+			prepStat = co.prepareStatement("UPDATE usuarios SET nombreUsuario = ? , telefono1Usuario = ? , telefono2Usuario = ? , usuarioUsuario = ? , contraseniaUsuario = ? , correoUsuario = ? , direccionUsuario = ? WHERE idUsuario = "+usuario.getDocumento());
 			prepStat.setString(1, usuario.getNombre());
 			prepStat.setString(2, usuario.getTel1());
 			prepStat.setString(3, usuario.getTel2());
@@ -104,7 +102,7 @@ public class ConexionSQL {
 	{
 		try {
 			prepararSQL();
-			prepStat = co.prepareStatement("INSERT INTO PRODUCTOS (nombreProducto,cantidad,publicador,precioProducto) values(?,?,?,?)");
+			prepStat = co.prepareStatement("INSERT INTO productos (nombreProducto,cantidad,publicador,precioProducto) values(?,?,?,?)");
 			
 			prepStat.setString(1, producto.getNombre());
 			prepStat.setInt(2, producto.getCantidad());
@@ -123,7 +121,7 @@ public class ConexionSQL {
 	{
 		prepararSQL();
 		try {
-			st.executeUpdate("DELETE FROM PRODUCTOS WHERE nombreProducto = \""+nombreProd+"\" and cantidad = 0 and publicador = \""+usuarioCamp+"\"");
+			st.executeUpdate("DELETE FROM productos WHERE nombreProducto = \""+nombreProd+"\" and cantidad = 0 and publicador = \""+usuarioCamp+"\"");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -137,7 +135,7 @@ public class ConexionSQL {
 		List<Producto> listaProductos = new LinkedList<Producto>();
 			try {
 				prepararSQL();
-				rs = st.executeQuery("SELECT * FROM PRODUCTOS WHERE "+columna+" = \""+tipo+"\"");
+				rs = st.executeQuery("SELECT * FROM productos WHERE "+columna+" = \""+tipo+"\"");
 				while(rs.next())
 				{
 					producto = new Producto(rs.getString(2),rs.getInt(5),rs.getInt(3),rs.getString(4));
@@ -156,7 +154,7 @@ public class ConexionSQL {
 	{
 		try {
 			prepararSQL();
-			ResultSet rs = st.executeQuery("SELECT * FROM USUARIOS WHERE usuarioUsuario = \""+usuario+"\" and contraseniaUsuario = \""+contrasenia+"\"");
+			ResultSet rs = st.executeQuery("SELECT * FROM usuarios WHERE usuarioUsuario = \""+usuario+"\" and contraseniaUsuario = \""+contrasenia+"\"");
 			if(rs.next())
 			{
 				//ResultSet rs2 = st.executeQuery("SELECT * FROM PRODUCTOS WHERE publicador = \""+rs.getString(5)+"\"");
