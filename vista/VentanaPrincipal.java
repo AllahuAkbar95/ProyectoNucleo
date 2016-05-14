@@ -23,8 +23,10 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import ProyectTests.Tests.Campesino;
+import ProyectTests.Tests.Cliente;
 import ProyectTests.Tests.Persona;
 import conexion.ConexionSQL;
+
 
 public class VentanaPrincipal extends JFrame implements ActionListener{
 	
@@ -34,7 +36,9 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	private JPanel panelBotones ,panelImagen ,panelprin;
 	private JPasswordField passcontrasena;
 	private ImageIcon imagen;
+	
 	private ConexionSQL conexion = new ConexionSQL();
+
 	
 	
 	
@@ -90,6 +94,10 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
         btnCrearUsuario.setForeground(Color.WHITE);
 
         
+        imagen= new ImageIcon("logo2.jpg");
+		lblim= new JLabel(imagen);
+		
+        
         panelBotones = new JPanel();
         panelBotones.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
@@ -102,8 +110,6 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		GridBagConstraints gbc2 = new GridBagConstraints();
 		
 		
-		imagen= new ImageIcon("logo2.jpg");
-		lblim= new JLabel(imagen);
 		
 		
 
@@ -216,8 +222,8 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	
 	public void actionPerformed(ActionEvent evento) {
 		
-		if(evento.getSource()==btnIngresar){
-			
+		if(evento.getSource()==btnIngresar)
+		{
 			Persona usuario = conexion.iniciarUsuario(txtusuario.getText(), passcontrasena.getText());
 			
 			if(usuario != null)
@@ -234,25 +240,21 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 				}
 				else if(usuario.getTipoUsurio().charAt(0) == 'U')
 				{
+					Cliente cliente = new Cliente(usuario.getDocumento(), usuario.getNombre(), usuario.getTel1(), usuario.getTel2(), usuario.getUsuario(), usuario.getContrasenia(), usuario.getCorreo(), usuario.getDireccion(), usuario.getListaProductos(), usuario.getTipoUsurio().charAt(0));
 					//para mirar la ventana de cliente
-					VentanaCliente vcl=new VentanaCliente();
+					VentanaCliente vcl=new VentanaCliente(cliente);
 					vcl.setVisible(true);
 					vcl.setLocationRelativeTo(null);
 					this.setVisible(false);
 				}else{
 					JOptionPane.showMessageDialog(this, "Usuario y/o contraseña incorrectos");
-				}
-				
-				
+				}	
 			}else{
 				JOptionPane.showMessageDialog(this, "Usuario y/o contraseña incorrectos");
-			}
-			
-			
-			
-			
-			
+			}			
+		
 		}
+
 		
 		if(evento.getSource()==btnCrearUsuario){
 			
