@@ -29,15 +29,16 @@ public class Persona {
 		this.tipoUsurio = nTipoUsuario;
 	}
 	
-	public void modificar(Persona persona,String nombre, String tel1, String tel2,String usurio, String contrasenia, String correo)
+	public void modificar(Persona persona,String nombre, String tel1, String tel2, String contrasenia, String correo, String direccion)
 	{
 		persona.setNombre(nombre);
 		persona.setTel1(tel1);
 		persona.setTel2(tel2);
-		persona.setUsuario(usurio);
 		persona.setContrasenia(contrasenia);
 		persona.setCorreo(correo);
+		persona.setDireccion(direccion);
 	}
+
 
 	public String getNombre() {
 		return nombre;
