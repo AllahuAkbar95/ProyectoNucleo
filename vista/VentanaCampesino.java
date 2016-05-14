@@ -12,10 +12,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -26,17 +28,18 @@ import ProyectTests.Tests.Campesino;
 
 public class VentanaCampesino extends JFrame implements ActionListener{
 	
-	private JButton btnEditarPerfil, btnVender, 
-			btnConsultarPrecio,btnCerrarSesion,btnnotificaciones;
-	private JPanel panelBotones, panelTabla, panelfinal;
-	private JTable table;
-	private Campesino usuario;
+	private JButton btnEditarPerfil, btnVender,btnCerrarSesion,btnnotificaciones;
+	private JPanel panelBotones, panelImagen, panelfinal;
+	private JLabel lblimg;
+	private ImageIcon imagen;
 	
+	private Campesino usuario;
 	
 	
 	//CONSTRUCTOR
 	public VentanaCampesino(Campesino usuario){
 		this.usuario = usuario;
+		
 		setTitle(" AGROLIBRE -- Sesion Inciada (Usuario)");
 		setSize(400, 320);//ancho- largo
 		
@@ -59,11 +62,7 @@ public class VentanaCampesino extends JFrame implements ActionListener{
 	    btnEditarPerfil.setBackground(verde);
 	    btnEditarPerfil.setForeground(Color.WHITE);
 	    
-	    btnConsultarPrecio= new JButton("Consultar Precio ");
-	    btnConsultarPrecio.addActionListener(this);
-	    btnConsultarPrecio.setFont(letra);
-	    btnConsultarPrecio.setBackground(verde);
-	    btnConsultarPrecio.setForeground(Color.WHITE);
+	    
 	    
 	    btnVender= new JButton("Vender ");
 	    btnVender.addActionListener(this);
@@ -83,23 +82,24 @@ public class VentanaCampesino extends JFrame implements ActionListener{
 	    btnCerrarSesion.setBackground(verde);
 	    btnCerrarSesion.setForeground(Color.WHITE);
 	    
+		imagen= new ImageIcon("logo2.jpg");
+	    lblimg=new JLabel(imagen);
+	    
+	    panelImagen=new JPanel();
+	    panelImagen.setLayout(new GridBagLayout());
+	    
 	    
 	    panelBotones= new JPanel();
 	    panelBotones.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
+	
 		
-		panelTabla= new JPanel();
-		panelTabla.setLayout(new GridBagLayout());
-		//GridBagConstraints gbc2 = new GridBagConstraints();
+		panelImagen= new JPanel();
+		panelImagen.setLayout(new GridBagLayout());
+		GridBagConstraints gbc2 = new GridBagConstraints();
+		
 
-	        //table.setPreferredScrollableViewportSize(table.getPreferredSize());
-	        JScrollPane scrollPane = new JScrollPane(table,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-	        getContentPane().add(scrollPane);
-	        
-			getContentPane().add(scrollPane, BorderLayout.CENTER);
-		
-	//=========================================================================
-		
+
 		
 		gbc.gridx = 0;
 		gbc.gridy = 2;
@@ -112,16 +112,7 @@ public class VentanaCampesino extends JFrame implements ActionListener{
 		gbc.anchor = GridBagConstraints.WEST;
 		panelBotones.add(btnEditarPerfil, gbc);
 	    
-		gbc.gridx = 1;
-		gbc.gridy = 2;
-		gbc.gridwidth = 1;
-		gbc.gridheight = 1;
-		gbc.weightx = 0.0;
-		gbc.weighty = 1.0;
-		gbc.insets = new Insets(3, 3, 3, 3);
-		gbc.fill = GridBagConstraints.BOTH;
-		gbc.anchor = GridBagConstraints.WEST;
-		panelBotones.add(btnConsultarPrecio, gbc);
+	
 		
 		gbc.gridx = 0;
 		gbc.gridy = 3;
@@ -135,7 +126,7 @@ public class VentanaCampesino extends JFrame implements ActionListener{
 		panelBotones.add(btnVender, gbc);
 		
 		gbc.gridx = 1;
-		gbc.gridy = 3;
+		gbc.gridy = 2;
 		gbc.gridwidth = 1;
 		gbc.gridheight = 1;
 		gbc.weightx = 0.0;
@@ -145,8 +136,19 @@ public class VentanaCampesino extends JFrame implements ActionListener{
 		gbc.anchor = GridBagConstraints.WEST;
 		panelBotones.add(btnCerrarSesion, gbc);
 		
+//		gbc.gridx = 0;
+//		gbc.gridy = 4;
+//		gbc.gridwidth = 1;
+//		gbc.gridheight = 1;
+//		gbc.weightx = 0.0;
+//		gbc.weighty = 1.0;
+//		gbc.insets = new Insets(3, 3, 3, 3);
+//		gbc.fill = GridBagConstraints.BOTH;
+//		gbc.anchor = GridBagConstraints.WEST;
+//		panelBotones.add(btnnotificaciones, gbc);
+		
 		gbc.gridx = 0;
-		gbc.gridy = 4;
+		gbc.gridy = 5;
 		gbc.gridwidth = 1;
 		gbc.gridheight = 1;
 		gbc.weightx = 0.0;
@@ -154,11 +156,11 @@ public class VentanaCampesino extends JFrame implements ActionListener{
 		gbc.insets = new Insets(3, 3, 3, 3);
 		gbc.fill = GridBagConstraints.BOTH;
 		gbc.anchor = GridBagConstraints.WEST;
-		panelBotones.add(btnnotificaciones, gbc);
+		panelImagen.add(lblimg, gbc2);
 		
 		panelfinal =new JPanel();
 		
-		//panelfinal.add(panelTabla);
+		panelfinal.add(panelImagen);
 		panelfinal.add(panelBotones);
 		
 		//panelTabla.setBorder(BorderFactory.createMatteBorder(3, 3, 3, 3, verde));
@@ -185,13 +187,6 @@ public class VentanaCampesino extends JFrame implements ActionListener{
 		
 			
 			
-		}
-		
-		if(evento.getSource()==btnConsultarPrecio){
-			VentanaPrecio vp=new VentanaPrecio(this.usuario);
-			vp.setVisible(true);
-			vp.setLocationRelativeTo(null);
-			this.setVisible(false);
 		}
 			
 		if(evento.getSource()==btnCerrarSesion){
@@ -234,16 +229,6 @@ public class VentanaCampesino extends JFrame implements ActionListener{
 	}
 
 
-	public JButton getBtnConsultarPrecio() {
-		return btnConsultarPrecio;
-	}
-
-
-	public void setBtnConsultarPrecio(JButton btnConsultarPrecio) {
-		this.btnConsultarPrecio = btnConsultarPrecio;
-	}
-
-
 	public JButton getBtnCerrarSesion() {
 		return btnCerrarSesion;
 	}
@@ -275,12 +260,12 @@ public class VentanaCampesino extends JFrame implements ActionListener{
 
 
 	public JPanel getPanelTabla() {
-		return panelTabla;
+		return panelImagen;
 	}
 
 
 	public void setPanelTabla(JPanel panelTabla) {
-		this.panelTabla = panelTabla;
+		this.panelImagen = panelTabla;
 	}
 
 
@@ -293,3 +278,4 @@ public class VentanaCampesino extends JFrame implements ActionListener{
 		this.panelfinal = panel;
 	}
 }
+
